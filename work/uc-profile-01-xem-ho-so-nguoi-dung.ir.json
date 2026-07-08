@@ -1,0 +1,46 @@
+{
+  "title": "XEM HỒ SƠ NGƯỜI DÙNG",
+  "lanes": [
+    { "id": "actor", "name": "Khách" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Truy cập hồ sơ\n/@username" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Tra cứu tài khoản\nđang hoạt động" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị thông báo\nkhông có tài khoản" },
+    { "id": "end_error", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Hiển thị thông tin\nhồ sơ công khai" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Hiển thị thống kê\nvà kỹ năng" },
+    { "id": "n6", "type": "action", "lane": "actor", "text": "Chọn tab hồ sơ" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Hiển thị nội dung\ntheo tab đã chọn" },
+    { "id": "n8", "type": "action", "lane": "actor", "text": "Xem danh sách theo dõi\nhoặc links" },
+    { "id": "n9", "type": "action", "lane": "system", "text": "Mở modal tương ứng" },
+    { "id": "n10", "type": "action", "lane": "actor", "text": "Nhấn Theo dõi\nnếu cần" },
+    { "id": "n11", "type": "action", "lane": "system", "text": "Chuyển hướng đến\nmàn hình Đăng nhập" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "Users" },
+    { "id": "note2", "type": "note", "lane": "system", "text": "Posts" },
+    { "id": "note3", "type": "note", "lane": "system", "text": "Follows" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "note1", "to": "n2", "kind": "note" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n4", "label": "Tồn tại" },
+    { "from": "d1", "to": "n3", "label": "Không tồn tại" },
+    { "from": "n3", "to": "end_error" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "n6" },
+    { "from": "n6", "to": "n7" },
+    { "from": "note2", "to": "n7", "kind": "note" },
+    { "from": "n7", "to": "n8" },
+    { "from": "n8", "to": "n9" },
+    { "from": "note3", "to": "n9", "kind": "note" },
+    { "from": "n9", "to": "n10" },
+    { "from": "n10", "to": "n11" },
+    { "from": "n11", "to": "end" }
+  ]
+}
