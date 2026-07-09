@@ -1,0 +1,427 @@
+{
+  "uc_id": "uc-clubapplication-01",
+  "uc_name": "Đăng kí tham gia câu lạc bộ",
+  "title": "ĐĂNG KÍ THAM GIA CÂU LẠC BỘ",
+  "lanes": [
+    {
+      "id": "actor",
+      "name": "Thành viên"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "lane": "actor"
+    },
+    {
+      "id": "n1",
+      "type": "action",
+      "lane": "actor",
+      "text": "Truy cập trang\nứng tuyển"
+    },
+    {
+      "id": "n2",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra đã\nđăng nhập"
+    },
+    {
+      "id": "d_login",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n3",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra cấu hình\nform mở"
+    },
+    {
+      "id": "d_form_open",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n4",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra tài khoản\nsinh viên CKC"
+    },
+    {
+      "id": "d_ckc",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n5",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra trạng thái\nthành viên CLB"
+    },
+    {
+      "id": "d_member",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n6",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra đơn\nđã có"
+    },
+    {
+      "id": "d_existing",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n7",
+      "type": "action",
+      "lane": "system",
+      "text": "Tải danh sách\ncâu hỏi"
+    },
+    {
+      "id": "d_load",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n8",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra có\ncâu hỏi"
+    },
+    {
+      "id": "d_questions",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n9",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị form\nứng tuyển"
+    },
+    {
+      "id": "n10",
+      "type": "action",
+      "lane": "actor",
+      "text": "Điền câu trả lời\nvà nộp đơn"
+    },
+    {
+      "id": "n11",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra câu hỏi\nbắt buộc"
+    },
+    {
+      "id": "d_required",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n12",
+      "type": "action",
+      "lane": "system",
+      "text": "Gửi đơn ứng tuyển"
+    },
+    {
+      "id": "d_submit",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n13",
+      "type": "action",
+      "lane": "system",
+      "text": "Lưu đơn trạng thái\nChờ xử lý"
+    },
+    {
+      "id": "n14",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị đã gửi đơn\nthành công"
+    },
+    {
+      "id": "n15",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị nút\nVề trang chủ"
+    },
+    {
+      "id": "h_login",
+      "type": "action",
+      "lane": "system",
+      "text": "Điều hướng về\ntrang đăng nhập"
+    },
+    {
+      "id": "h_member",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo đã là\nthành viên CLB"
+    },
+    {
+      "id": "h_member_go",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị nút\nVào cộng đồng"
+    },
+    {
+      "id": "h_not_ckc",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo chỉ dành\ncho sinh viên CKC"
+    },
+    {
+      "id": "h_closed",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo form\nđang đóng"
+    },
+    {
+      "id": "h_existing",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị trạng thái\nđơn đã có"
+    },
+    {
+      "id": "h_no_questions",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo form\nchưa được mở"
+    },
+    {
+      "id": "h_load_fail",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo không thể\ntải form"
+    },
+    {
+      "id": "h_required",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo thiếu\ncâu bắt buộc"
+    },
+    {
+      "id": "h_submit_fail",
+      "type": "action",
+      "lane": "system",
+      "text": "Thông báo gửi đơn\nthất bại"
+    },
+    {
+      "id": "end",
+      "type": "end",
+      "lane": "system"
+    }
+  ],
+  "flows": [
+    {
+      "from": "start",
+      "to": "n1"
+    },
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "d_login"
+    },
+    {
+      "from": "d_login",
+      "to": "n3",
+      "label": "Đã đăng nhập"
+    },
+    {
+      "from": "d_login",
+      "to": "h_login",
+      "label": "Chưa đăng nhập",
+      "branch": "alt"
+    },
+    {
+      "from": "n3",
+      "to": "d_form_open"
+    },
+    {
+      "from": "d_form_open",
+      "to": "n4",
+      "label": "Đang mở"
+    },
+    {
+      "from": "d_form_open",
+      "to": "h_closed",
+      "label": "Đang đóng",
+      "branch": "alt"
+    },
+    {
+      "from": "n4",
+      "to": "d_ckc"
+    },
+    {
+      "from": "d_ckc",
+      "to": "n5",
+      "label": "Là sinh viên CKC"
+    },
+    {
+      "from": "d_ckc",
+      "to": "h_not_ckc",
+      "label": "Không phải CKC",
+      "branch": "alt"
+    },
+    {
+      "from": "n5",
+      "to": "d_member"
+    },
+    {
+      "from": "d_member",
+      "to": "n6",
+      "label": "Chưa là thành viên"
+    },
+    {
+      "from": "d_member",
+      "to": "h_member",
+      "label": "Đã là thành viên",
+      "branch": "alt"
+    },
+    {
+      "from": "n6",
+      "to": "d_existing"
+    },
+    {
+      "from": "d_existing",
+      "to": "n7",
+      "label": "Chưa có đơn"
+    },
+    {
+      "from": "d_existing",
+      "to": "h_existing",
+      "label": "Đã có đơn",
+      "branch": "alt"
+    },
+    {
+      "from": "n7",
+      "to": "d_load"
+    },
+    {
+      "from": "d_load",
+      "to": "n8",
+      "label": "Tải thành công"
+    },
+    {
+      "from": "d_load",
+      "to": "h_load_fail",
+      "label": "Tải thất bại",
+      "branch": "alt"
+    },
+    {
+      "from": "n8",
+      "to": "d_questions"
+    },
+    {
+      "from": "d_questions",
+      "to": "n9",
+      "label": "Có câu hỏi"
+    },
+    {
+      "from": "d_questions",
+      "to": "h_no_questions",
+      "label": "Chưa có câu hỏi",
+      "branch": "alt"
+    },
+    {
+      "from": "n9",
+      "to": "n10"
+    },
+    {
+      "from": "n10",
+      "to": "n11"
+    },
+    {
+      "from": "n11",
+      "to": "d_required"
+    },
+    {
+      "from": "d_required",
+      "to": "n12",
+      "label": "Đầy đủ"
+    },
+    {
+      "from": "d_required",
+      "to": "h_required",
+      "label": "Thiếu câu bắt buộc",
+      "branch": "alt"
+    },
+    {
+      "from": "n12",
+      "to": "d_submit"
+    },
+    {
+      "from": "d_submit",
+      "to": "n13",
+      "label": "Gửi thành công"
+    },
+    {
+      "from": "d_submit",
+      "to": "h_submit_fail",
+      "label": "Gửi thất bại",
+      "branch": "alt"
+    },
+    {
+      "from": "n13",
+      "to": "n14"
+    },
+    {
+      "from": "n14",
+      "to": "n15"
+    },
+    {
+      "from": "n15",
+      "to": "end"
+    },
+    {
+      "from": "h_login",
+      "to": "end"
+    },
+    {
+      "from": "h_member",
+      "to": "h_member_go"
+    },
+    {
+      "from": "h_member_go",
+      "to": "end"
+    },
+    {
+      "from": "h_not_ckc",
+      "to": "end"
+    },
+    {
+      "from": "h_closed",
+      "to": "end"
+    },
+    {
+      "from": "h_existing",
+      "to": "end"
+    },
+    {
+      "from": "h_no_questions",
+      "to": "end"
+    },
+    {
+      "from": "h_load_fail",
+      "to": "end"
+    },
+    {
+      "from": "h_required",
+      "to": "n10"
+    },
+    {
+      "from": "h_submit_fail",
+      "to": "n10"
+    }
+  ]
+}

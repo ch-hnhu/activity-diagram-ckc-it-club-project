@@ -1,0 +1,169 @@
+{
+  "uc_id": "uc-auth-03",
+  "uc_name": "Đăng xuất",
+  "title": "ĐĂNG XUẤT",
+  "lanes": [
+    {
+      "id": "actor",
+      "name": "Thành viên"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    },
+    {
+      "id": "server",
+      "name": "Máy chủ"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "lane": "actor"
+    },
+    {
+      "id": "n1",
+      "type": "action",
+      "lane": "actor",
+      "text": "Nhấn nút\nĐăng xuất"
+    },
+    {
+      "id": "n2",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra phiên\nđăng nhập"
+    },
+    {
+      "id": "d1",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n3",
+      "type": "action",
+      "lane": "system",
+      "text": "Gửi yêu cầu\nđăng xuất"
+    },
+    {
+      "id": "n4",
+      "type": "action",
+      "lane": "server",
+      "text": "Thu hồi token\nhiện tại"
+    },
+    {
+      "id": "n5",
+      "type": "action",
+      "lane": "system",
+      "text": "Xóa token trên\ntrình duyệt"
+    },
+    {
+      "id": "n6",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra màn hình\nhiện tại"
+    },
+    {
+      "id": "d2",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n7",
+      "type": "action",
+      "lane": "system",
+      "text": "Chuyển về trang\nđăng nhập"
+    },
+    {
+      "id": "n8",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị trạng thái\nchưa đăng nhập"
+    },
+    {
+      "id": "n9",
+      "type": "action",
+      "lane": "system",
+      "text": "Xóa trạng thái\nđăng nhập"
+    },
+    {
+      "id": "n10",
+      "type": "action",
+      "lane": "system",
+      "text": "Yêu cầu đăng nhập\nlại"
+    },
+    {
+      "id": "end",
+      "type": "end",
+      "lane": "system"
+    }
+  ],
+  "flows": [
+    {
+      "from": "start",
+      "to": "n1"
+    },
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "d1"
+    },
+    {
+      "from": "d1",
+      "to": "n3",
+      "label": "Hợp lệ"
+    },
+    {
+      "from": "d1",
+      "to": "n9",
+      "label": "Không hợp lệ",
+      "branch": "alt"
+    },
+    {
+      "from": "n3",
+      "to": "n4"
+    },
+    {
+      "from": "n4",
+      "to": "n5"
+    },
+    {
+      "from": "n5",
+      "to": "n6"
+    },
+    {
+      "from": "n6",
+      "to": "d2"
+    },
+    {
+      "from": "d2",
+      "to": "n7",
+      "label": "Màn hình quản trị"
+    },
+    {
+      "from": "d2",
+      "to": "n8",
+      "label": "Màn hình khác",
+      "branch": "alt"
+    },
+    {
+      "from": "n7",
+      "to": "end"
+    },
+    {
+      "from": "n8",
+      "to": "end"
+    },
+    {
+      "from": "n9",
+      "to": "n10"
+    },
+    {
+      "from": "n10",
+      "to": "end"
+    }
+  ]
+}
