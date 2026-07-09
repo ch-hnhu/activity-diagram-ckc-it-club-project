@@ -1,0 +1,45 @@
+{
+  "uc_id": "uc-user-01",
+  "title": "XEM DANH SÁCH NGƯỜI DÙNG",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn \"Quản lý người dùng\"\ntrên menu điều hướng" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_noperm", "type": "action", "lane": "system", "text": "Hiển thị toast \"Tài khoản\nkhông có quyền thực hiện\nchức năng này\"" },
+    { "id": "end_noperm", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Mở màn hình và tải\ndanh sách người dùng" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_err", "type": "action", "lane": "system", "text": "Ghi nhận lỗi,\ngiữ màn hình hiện tại" },
+    { "id": "end_err", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị danh sách người dùng\n(sắp xếp theo ngày tạo mới nhất)" },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Tìm kiếm, lọc theo vai trò,\nsắp xếp hoặc phân trang" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Cập nhật bảng dữ liệu\ntương ứng" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Hiển thị bảng dữ liệu\nkết quả" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Hiển thị \"Không tìm thấy\nkết quả phù hợp.\"" },
+    { "id": "end2", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d1" },
+    { "from": "d1", "to": "n2", "label": "Có quyền", "branch": "main" },
+    { "from": "d1", "to": "n_noperm", "label": "Không có quyền", "branch": "alt" },
+    { "from": "n_noperm", "to": "end_noperm" },
+    { "from": "n2", "to": "d2" },
+    { "from": "d2", "to": "n3", "label": "Thành công", "branch": "main" },
+    { "from": "d2", "to": "n_err", "label": "Lỗi tải dữ liệu", "branch": "alt" },
+    { "from": "n_err", "to": "end_err" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "d3" },
+    { "from": "d3", "to": "n6", "label": "Có dữ liệu", "branch": "main" },
+    { "from": "d3", "to": "n7", "label": "Không có dữ liệu", "branch": "alt" },
+    { "from": "n6", "to": "end" },
+    { "from": "n7", "to": "end2" }
+  ]
+}
