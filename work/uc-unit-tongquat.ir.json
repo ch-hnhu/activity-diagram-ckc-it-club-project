@@ -1,0 +1,44 @@
+{
+  "uc_id": "uc-unit-tongquat",
+  "title": "QUẢN LÝ ĐƠN VỊ",
+  "lanes": [
+    { "id": "actor", "name": "Trưởng ban tình nguyện" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Truy cập màn hình\nquản lý đơn vị" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Kiểm tra quyền\nquản lý đơn vị" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_ef1", "type": "action", "lane": "system", "text": "Từ chối thao tác" },
+    { "id": "end2", "type": "end", "lane": "system", "y_after": "n_ef1" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị danh sách\n(tìm kiếm, lọc, sắp xếp, phân trang)" },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Thêm/sửa/xóa bản ghi\nhoặc import/tải file" },
+    { "id": "d_cancel", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng form, giữ\nnguyên dữ liệu cũ" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Kiểm tra hợp lệ dữ liệu" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Hiển thị thông báo lỗi" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Lưu thay đổi, cập nhật\ndanh sách, hiển thị thông báo",
+      "data": [ { "table": "Khoa/Ngành/Lớp", "access": "write" } ] },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Có quyền" },
+    { "from": "d1", "to": "n_ef1", "label": "Không có quyền", "branch": "alt" },
+    { "from": "n_ef1", "to": "end2" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "d_cancel" },
+    { "from": "d_cancel", "to": "n5", "label": "Tiếp tục" },
+    { "from": "d_cancel", "to": "n_cancel", "label": "Hủy", "branch": "alt" },
+    { "from": "n_cancel", "to": "n3" },
+    { "from": "n5", "to": "d3" },
+    { "from": "d3", "to": "n6", "label": "Hợp lệ" },
+    { "from": "d3", "to": "n7", "label": "Không hợp lệ", "branch": "alt" },
+    { "from": "n7", "to": "n4" },
+    { "from": "n6", "to": "end" }
+  ]
+}

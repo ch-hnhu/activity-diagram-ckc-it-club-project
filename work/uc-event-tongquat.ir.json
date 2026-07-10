@@ -1,0 +1,87 @@
+{
+  "uc_id": "uc-event-tongquat",
+  "title": "QUẢN LÝ SỰ KIỆN",
+  "lanes": [
+    { "id": "actor", "name": "Trưởng ban truyền thông" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Truy cập màn hình\n\"Quản lý sự kiện\"" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Kiểm tra quyền\nquản lý sự kiện" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị, tìm kiếm,\nlọc danh sách sự kiện" },
+    { "id": "d2", "type": "decision", "lane": "actor" },
+
+    { "id": "c1", "type": "action", "lane": "actor", "text": "Nhập/cập nhật thông tin\nsự kiện (tên, thời gian,\ntrạng thái)" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "c2", "type": "action", "lane": "system", "text": "Thông báo thiếu thông tin/\nthời gian không hợp lệ" },
+    { "id": "c3", "type": "action", "lane": "system", "text": "Lưu sự kiện (nháp\nhoặc đăng chính thức)", "data": [ { "table": "Event", "access": "write" } ] },
+
+    { "id": "e1", "type": "action", "lane": "actor", "text": "Xem chi tiết sự kiện và\ndanh sách người tham gia" },
+    { "id": "d4", "type": "decision", "lane": "actor" },
+    { "id": "e2", "type": "action", "lane": "actor", "text": "Quét mã QR\nđiểm danh" },
+    { "id": "e3", "type": "action", "lane": "actor", "text": "Điểm danh\nthủ công" },
+    { "id": "d5", "type": "decision", "lane": "system" },
+    { "id": "e4", "type": "action", "lane": "system", "text": "Thông báo chưa đăng ký\nhoặc đã điểm danh" },
+    { "id": "e5", "type": "action", "lane": "system", "text": "Cập nhật trạng thái\nđiểm danh", "data": [ { "table": "EventAttendance", "access": "write" } ] },
+
+    { "id": "f1", "type": "action", "lane": "actor", "text": "Xem danh sách phản hồi,\nđánh giá của người tham dự" },
+    { "id": "f2", "type": "action", "lane": "actor", "text": "Chọn xóa phản hồi\nvi phạm" },
+    { "id": "f3", "type": "action", "lane": "system", "text": "Xóa phản hồi", "data": [ { "table": "EventFeedback", "access": "write" } ] },
+
+    { "id": "g1", "type": "action", "lane": "actor", "text": "Tải lên/sắp xếp/xóa\nảnh thư viện sự kiện" },
+    { "id": "d6", "type": "decision", "lane": "system" },
+    { "id": "g2", "type": "action", "lane": "system", "text": "Thông báo ảnh vượt\nquá 5MB" },
+    { "id": "g3", "type": "action", "lane": "system", "text": "Cập nhật thư viện\nảnh sự kiện", "data": [ { "table": "EventImage", "access": "write" } ] },
+
+    { "id": "n10", "type": "action", "lane": "system", "text": "Hiển thị thông báo\nthực hiện thành công" },
+    { "id": "d7", "type": "decision", "lane": "actor" },
+    { "id": "n11", "type": "action", "lane": "system", "text": "Chuyển về trang\nđăng nhập" },
+    { "id": "end1", "type": "end", "lane": "system" },
+    { "id": "end2", "type": "end", "lane": "actor" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Đủ quyền" },
+    { "from": "d1", "to": "n11", "label": "Không đủ quyền" },
+    { "from": "n11", "to": "end1" },
+    { "from": "n3", "to": "d2" },
+
+    { "from": "d2", "to": "c1", "label": "Tạo mới/cập nhật/\nxóa sự kiện" },
+    { "from": "c1", "to": "d3" },
+    { "from": "d3", "to": "c3", "label": "Hợp lệ" },
+    { "from": "d3", "to": "c2", "label": "Thiếu/không\nhợp lệ" },
+    { "from": "c2", "to": "c1" },
+    { "from": "c3", "to": "n10" },
+
+    { "from": "d2", "to": "e1", "label": "Xem chi tiết &\nđiểm danh" },
+    { "from": "e1", "to": "d4" },
+    { "from": "d4", "to": "e2", "label": "Quét QR" },
+    { "from": "d4", "to": "e3", "label": "Thủ công" },
+    { "from": "e2", "to": "d5" },
+    { "from": "e3", "to": "d5" },
+    { "from": "d5", "to": "e5", "label": "Đã đăng ký,\nchưa điểm danh" },
+    { "from": "d5", "to": "e4", "label": "Không hợp lệ" },
+    { "from": "e4", "to": "e1" },
+    { "from": "e5", "to": "n10" },
+
+    { "from": "d2", "to": "f1", "label": "Kiểm duyệt\nphản hồi" },
+    { "from": "f1", "to": "f2" },
+    { "from": "f2", "to": "f3" },
+    { "from": "f3", "to": "n10" },
+
+    { "from": "d2", "to": "g1", "label": "Quản lý\nthư viện ảnh" },
+    { "from": "g1", "to": "d6" },
+    { "from": "d6", "to": "g3", "label": "Hợp lệ\n(≤5MB)" },
+    { "from": "d6", "to": "g2", "label": "Vượt\ndung lượng" },
+    { "from": "g2", "to": "g1" },
+    { "from": "g3", "to": "n10" },
+
+    { "from": "n10", "to": "d7" },
+    { "from": "d7", "to": "n3", "label": "Tiếp tục\nthao tác khác" },
+    { "from": "d7", "to": "end2", "label": "Kết thúc" }
+  ]
+}

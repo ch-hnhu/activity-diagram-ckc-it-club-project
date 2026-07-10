@@ -1,0 +1,263 @@
+{
+  "uc_id": "uc-leaderboard-tongquat",
+  "title": "QUẢN LÝ RULE ĐIỂM HOẠT ĐỘNG & RANK",
+  "lanes": [
+    {
+      "id": "actor",
+      "name": "Ban chủ nhiệm"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "lane": "actor"
+    },
+    {
+      "id": "n1",
+      "type": "action",
+      "lane": "actor",
+      "text": "Truy cập màn hình quản lý\nrank và rule điểm hoạt động"
+    },
+    {
+      "id": "n2",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra phiên đăng nhập\nvà quyền quản lý"
+    },
+    {
+      "id": "d1",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n11",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị lỗi 403,\ntừ chối truy cập"
+    },
+    {
+      "id": "end1",
+      "type": "end",
+      "lane": "system"
+    },
+    {
+      "id": "n3",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị trang quản lý\ntổng quan"
+    },
+    {
+      "id": "d2",
+      "type": "decision",
+      "lane": "actor"
+    },
+    {
+      "id": "b_rank",
+      "type": "action",
+      "lane": "actor",
+      "text": "Xem, thêm, sửa\nhoặc xóa mốc rank"
+    },
+    {
+      "id": "b_rule",
+      "type": "action",
+      "lane": "actor",
+      "text": "Xem, sửa cấu hình\nrule tích điểm"
+    },
+    {
+      "id": "b_bxh",
+      "type": "action",
+      "lane": "actor",
+      "text": "Xem bảng xếp hạng\nđiểm cộng đồng"
+    },
+    {
+      "id": "n4",
+      "type": "action",
+      "lane": "system",
+      "text": "Tải dữ liệu danh mục\nđã chọn (chưa xóa mềm)"
+    },
+    {
+      "id": "d3",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n5",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị thông báo\nlỗi tải dữ liệu"
+    },
+    {
+      "id": "d4",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n6",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị danh sách\ndữ liệu tương ứng"
+    },
+    {
+      "id": "n7",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị thông báo\ndanh mục trống"
+    },
+    {
+      "id": "n8",
+      "type": "action",
+      "lane": "actor",
+      "text": "Thực hiện thao tác\n(xem/thêm/sửa/xóa/khác)"
+    },
+    {
+      "id": "n9",
+      "type": "action",
+      "lane": "system",
+      "text": "Cập nhật dữ liệu\ntương ứng"
+    },
+    {
+      "id": "n10",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị thông báo\ncập nhật thành công"
+    },
+    {
+      "id": "d5",
+      "type": "decision",
+      "lane": "actor"
+    },
+    {
+      "id": "end2",
+      "type": "end",
+      "lane": "actor"
+    }
+  ],
+  "flows": [
+    {
+      "from": "start",
+      "to": "n1"
+    },
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "d1"
+    },
+    {
+      "from": "d1",
+      "to": "n3",
+      "label": "Đủ quyền"
+    },
+    {
+      "from": "d1",
+      "to": "n11",
+      "label": "Không đủ quyền/hết phiên",
+      "branch": "alt"
+    },
+    {
+      "from": "n11",
+      "to": "end1",
+      "branch": "alt"
+    },
+    {
+      "from": "n3",
+      "to": "d2"
+    },
+    {
+      "from": "d2",
+      "to": "b_rank",
+      "label": "Rank"
+    },
+    {
+      "from": "b_rank",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_rule",
+      "label": "Rule điểm\nhoạt động"
+    },
+    {
+      "from": "b_rule",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_bxh",
+      "label": "Bảng\nxếp hạng"
+    },
+    {
+      "from": "b_bxh",
+      "to": "n4"
+    },
+    {
+      "from": "n4",
+      "to": "d3"
+    },
+    {
+      "from": "d3",
+      "to": "d4",
+      "label": "Thành công"
+    },
+    {
+      "from": "d3",
+      "to": "n5",
+      "label": "Lỗi hệ thống",
+      "branch": "alt"
+    },
+    {
+      "from": "n5",
+      "to": "n3",
+      "branch": "alt"
+    },
+    {
+      "from": "d4",
+      "to": "n6",
+      "label": "Có dữ liệu"
+    },
+    {
+      "from": "d4",
+      "to": "n7",
+      "label": "Trống",
+      "branch": "alt"
+    },
+    {
+      "from": "n6",
+      "to": "n8"
+    },
+    {
+      "from": "n7",
+      "to": "n8"
+    },
+    {
+      "from": "n8",
+      "to": "n9"
+    },
+    {
+      "from": "n9",
+      "to": "n10"
+    },
+    {
+      "from": "n10",
+      "to": "d5"
+    },
+    {
+      "from": "d5",
+      "to": "n3",
+      "label": "Tiếp tục"
+    },
+    {
+      "from": "d5",
+      "to": "end2",
+      "label": "Kết thúc",
+      "branch": "alt"
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+{
+  "uc_id": "uc-course-tongquat",
+  "title": "QUẢN LÝ KHÓA HỌC",
+  "lanes": [
+    {
+      "id": "actor",
+      "name": "Trưởng ban học thuật"
+    },
+    {
+      "id": "system",
+      "name": "Hệ thống"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "lane": "actor"
+    },
+    {
+      "id": "n1",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn \"Trung tâm đào tạo\n→ Khóa học\" trên menu"
+    },
+    {
+      "id": "n2",
+      "type": "action",
+      "lane": "system",
+      "text": "Kiểm tra phiên đăng nhập\nvà quyền quản lý"
+    },
+    {
+      "id": "d1",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n11",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị lỗi 403,\ntừ chối truy cập"
+    },
+    {
+      "id": "end1",
+      "type": "end",
+      "lane": "system"
+    },
+    {
+      "id": "n3",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị trang quản lý\ntổng quan"
+    },
+    {
+      "id": "d2",
+      "type": "decision",
+      "lane": "actor"
+    },
+    {
+      "id": "b_danhmuc",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn quản lý danh mục\nvà khóa học"
+    },
+    {
+      "id": "b_buoihoc",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn tổ chức\nbuổi học"
+    },
+    {
+      "id": "b_diemdanh",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn điểm danh\nvà chấm bài tập"
+    },
+    {
+      "id": "b_quiz",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn quản lý\nquiz buổi học"
+    },
+    {
+      "id": "b_ghidanh",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn ghi danh\nhọc viên"
+    },
+    {
+      "id": "b_chungnhan",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn cấp/thu hồi\nchứng nhận"
+    },
+    {
+      "id": "b_mauchungnhan",
+      "type": "action",
+      "lane": "actor",
+      "text": "Chọn quản lý\nmẫu chứng nhận"
+    },
+    {
+      "id": "n4",
+      "type": "action",
+      "lane": "system",
+      "text": "Tải dữ liệu danh mục\nđã chọn (chưa xóa mềm)"
+    },
+    {
+      "id": "d3",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n5",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị thông báo\nlỗi tải dữ liệu"
+    },
+    {
+      "id": "d4",
+      "type": "decision",
+      "lane": "system"
+    },
+    {
+      "id": "n6",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị danh sách\ndữ liệu tương ứng"
+    },
+    {
+      "id": "n7",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị thông báo\ndanh mục trống"
+    },
+    {
+      "id": "n8",
+      "type": "action",
+      "lane": "actor",
+      "text": "Thực hiện thao tác\n(xem/thêm/sửa/xóa/khác)"
+    },
+    {
+      "id": "n9",
+      "type": "action",
+      "lane": "system",
+      "text": "Cập nhật dữ liệu\ntương ứng"
+    },
+    {
+      "id": "n10",
+      "type": "action",
+      "lane": "system",
+      "text": "Hiển thị thông báo\ncập nhật thành công"
+    },
+    {
+      "id": "d5",
+      "type": "decision",
+      "lane": "actor"
+    },
+    {
+      "id": "end2",
+      "type": "end",
+      "lane": "actor"
+    }
+  ],
+  "flows": [
+    {
+      "from": "start",
+      "to": "n1"
+    },
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "d1"
+    },
+    {
+      "from": "d1",
+      "to": "n3",
+      "label": "Đủ quyền"
+    },
+    {
+      "from": "d1",
+      "to": "n11",
+      "label": "Không đủ quyền/hết phiên",
+      "branch": "alt"
+    },
+    {
+      "from": "n11",
+      "to": "end1",
+      "branch": "alt"
+    },
+    {
+      "from": "n3",
+      "to": "d2"
+    },
+    {
+      "from": "d2",
+      "to": "b_danhmuc",
+      "label": "Danh mục &\nkhóa học"
+    },
+    {
+      "from": "b_danhmuc",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_buoihoc",
+      "label": "Buổi học"
+    },
+    {
+      "from": "b_buoihoc",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_diemdanh",
+      "label": "Điểm danh &\nchấm bài"
+    },
+    {
+      "from": "b_diemdanh",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_quiz",
+      "label": "Quiz"
+    },
+    {
+      "from": "b_quiz",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_ghidanh",
+      "label": "Ghi danh"
+    },
+    {
+      "from": "b_ghidanh",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_chungnhan",
+      "label": "Chứng nhận"
+    },
+    {
+      "from": "b_chungnhan",
+      "to": "n4"
+    },
+    {
+      "from": "d2",
+      "to": "b_mauchungnhan",
+      "label": "Mẫu chứng nhận"
+    },
+    {
+      "from": "b_mauchungnhan",
+      "to": "n4"
+    },
+    {
+      "from": "n4",
+      "to": "d3"
+    },
+    {
+      "from": "d3",
+      "to": "d4",
+      "label": "Thành công"
+    },
+    {
+      "from": "d3",
+      "to": "n5",
+      "label": "Lỗi hệ thống",
+      "branch": "alt"
+    },
+    {
+      "from": "n5",
+      "to": "n3",
+      "branch": "alt"
+    },
+    {
+      "from": "d4",
+      "to": "n6",
+      "label": "Có dữ liệu"
+    },
+    {
+      "from": "d4",
+      "to": "n7",
+      "label": "Trống",
+      "branch": "alt"
+    },
+    {
+      "from": "n6",
+      "to": "n8"
+    },
+    {
+      "from": "n7",
+      "to": "n8"
+    },
+    {
+      "from": "n8",
+      "to": "n9"
+    },
+    {
+      "from": "n9",
+      "to": "n10"
+    },
+    {
+      "from": "n10",
+      "to": "d5"
+    },
+    {
+      "from": "d5",
+      "to": "n3",
+      "label": "Tiếp tục"
+    },
+    {
+      "from": "d5",
+      "to": "end2",
+      "label": "Kết thúc",
+      "branch": "alt"
+    }
+  ]
+}

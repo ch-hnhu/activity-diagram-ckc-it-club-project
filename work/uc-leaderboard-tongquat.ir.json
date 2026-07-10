@@ -1,0 +1,49 @@
+{
+  "uc_id": "uc-leaderboard-tongquat",
+  "title": "THEO DÕI ĐIỂM HOẠT ĐỘNG & RANK",
+  "lanes": [
+    { "id": "actor", "name": "Thành viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Thực hiện hoạt động đủ điều\nkiện tích điểm (đăng bài,\nbình luận, thả cảm xúc,\nđiểm danh...)" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Kiểm tra quy tắc và\ngiới hạn tích điểm" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "errdup", "type": "action", "lane": "system", "text": "Bỏ qua, không cộng điểm\n(trùng lặp/vượt giới hạn)" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Cộng điểm và ghi\nlịch sử giao dịch", "data": [{ "table": "DiemHoatDong", "access": "write" }] },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Cập nhật rank mới\ncho thành viên", "data": [{ "table": "Rank", "access": "write" }] },
+    { "id": "merge1", "type": "action", "lane": "actor", "text": "Truy cập trang\n\"Điểm của tôi\"" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Hiển thị tổng điểm, rank,\ntiến độ lên rank và\nlịch sử tích điểm" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "nmax", "type": "action", "lane": "system", "text": "Thông báo đã đạt\nrank tối đa" },
+    { "id": "n6", "type": "action", "lane": "actor", "text": "Chuyển sang trang\n\"Bảng xếp hạng\"" },
+    { "id": "d4", "type": "decision", "lane": "actor" },
+    { "id": "n7a", "type": "action", "lane": "system", "text": "Hiển thị xếp hạng\ntuần hiện tại (từ thứ Hai)", "data": [{ "table": "Leaderboard", "access": "read" }] },
+    { "id": "n7b", "type": "action", "lane": "system", "text": "Hiển thị xếp hạng\ntoàn thời gian", "data": [{ "table": "Leaderboard", "access": "read" }] },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Hợp lệ" },
+    { "from": "d1", "to": "errdup", "label": "Trùng/vượt giới hạn", "branch": "alt" },
+    { "from": "errdup", "to": "end" },
+    { "from": "n3", "to": "d2" },
+    { "from": "d2", "to": "n4", "label": "Đạt ngưỡng mới" },
+    { "from": "d2", "to": "merge1", "label": "Chưa đạt ngưỡng", "branch": "alt" },
+    { "from": "n4", "to": "merge1" },
+    { "from": "merge1", "to": "n5" },
+    { "from": "n5", "to": "d3" },
+    { "from": "d3", "to": "n6", "label": "Chưa đạt rank tối đa" },
+    { "from": "d3", "to": "nmax", "label": "Đã đạt rank tối đa", "branch": "alt" },
+    { "from": "nmax", "to": "n6", "branch": "alt" },
+    { "from": "n6", "to": "d4" },
+    { "from": "d4", "to": "n7a", "label": "Weekly" },
+    { "from": "d4", "to": "n7b", "label": "All Time" },
+    { "from": "n7a", "to": "end" },
+    { "from": "n7b", "to": "end" }
+  ]
+}

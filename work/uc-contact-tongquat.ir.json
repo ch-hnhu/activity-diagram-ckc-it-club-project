@@ -1,0 +1,43 @@
+{
+  "uc_id": "uc-contact-tongquat",
+  "title": "QUẢN LÝ LIÊN HỆ",
+  "lanes": [
+    { "id": "actor", "name": "Trưởng ban tình nguyện" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Truy cập màn hình\nquản lý liên hệ" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Kiểm tra quyền\nquản lý liên hệ" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_ef1", "type": "action", "lane": "system", "text": "Từ chối thao tác" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị danh sách liên hệ\nkèm thống kê tổng quan",
+      "data": [ { "table": "LienHe", "access": "read" } ] },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Tìm kiếm theo từ khóa\nhoặc lọc theo trạng thái" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_ef2", "type": "action", "lane": "system", "text": "Hiển thị thông báo\nkhông tìm thấy liên hệ" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Cập nhật danh sách\ntương ứng" },
+    { "id": "d3", "type": "decision", "lane": "actor" },
+    { "id": "n6", "type": "action", "lane": "actor", "text": "Chọn xem chi tiết\nmột liên hệ" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Hiển thị đầy đủ nội dung\nliên hệ" },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Có quyền" },
+    { "from": "d1", "to": "n_ef1", "label": "Không có quyền", "branch": "alt" },
+    { "from": "n_ef1", "to": "end" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "d2" },
+    { "from": "d2", "to": "n5", "label": "Tìm thấy" },
+    { "from": "d2", "to": "n_ef2", "label": "Không tìm thấy", "branch": "alt" },
+    { "from": "n_ef2", "to": "n4" },
+    { "from": "n5", "to": "d3" },
+    { "from": "d3", "to": "n6", "label": "Xem chi tiết" },
+    { "from": "d3", "to": "end", "label": "Không xem chi tiết", "branch": "alt" },
+    { "from": "n6", "to": "n7" },
+    { "from": "n7", "to": "end" }
+  ]
+}
