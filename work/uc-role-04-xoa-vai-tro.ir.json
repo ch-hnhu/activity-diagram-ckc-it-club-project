@@ -1,0 +1,49 @@
+{
+  "uc_id": "uc-role-04",
+  "title": "XOÁ VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn \"Xoá\" trong menu\nhành động (⋯)" },
+    { "id": "d0", "type": "decision", "lane": "system" },
+    { "id": "n_ef1", "type": "action", "lane": "system", "text": "Hiện toast \"Không thể xoá\nvai trò hệ thống.\"" },
+    { "id": "end_ef1", "type": "end", "lane": "system" },
+    { "id": "d0b", "type": "decision", "lane": "system" },
+    { "id": "n_ef2", "type": "action", "lane": "system", "text": "Hiện toast \"Không thể xoá vai trò\nđang được gán cho người dùng.\"" },
+    { "id": "end_ef2", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Hiển thị hộp thoại xác nhận\n\"Bạn có chắc chắn muốn xoá\nvai trò này?\"" },
+    { "id": "d1", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng hộp thoại,\nkhông xoá, quay lại danh sách" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Gửi yêu cầu\nxoá vai trò" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_err", "type": "action", "lane": "system", "text": "Hiện toast \"Không thể\nxoá vai trò này.\"" },
+    { "id": "end_err", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Hiện toast \"Xoá vai trò\nthành công.\"; làm mới danh sách" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "Role" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d0" },
+    { "from": "d0", "to": "n_ef1", "label": "Là vai trò hệ thống" },
+    { "from": "n_ef1", "to": "end_ef1" },
+    { "from": "d0", "to": "d0b", "label": "Không phải vai trò hệ thống" },
+    { "from": "d0b", "to": "n_ef2", "label": "Đã gán cho người dùng" },
+    { "from": "n_ef2", "to": "end_ef2" },
+    { "from": "d0b", "to": "n2", "label": "Chưa gán cho ai" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n_cancel", "label": "Nhấn Cancel" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "d1", "to": "n3", "label": "Nhấn OK" },
+    { "from": "note1", "to": "n3", "kind": "note" },
+    { "from": "n3", "to": "d2" },
+    { "from": "d2", "to": "n_err", "label": "Lỗi máy chủ" },
+    { "from": "n_err", "to": "end_err" },
+    { "from": "d2", "to": "n4", "label": "Thành công" },
+    { "from": "n4", "to": "end" }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "uc_id": "uc-role-05",
+  "title": "XEM CHI TIẾT VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn \"Chi tiết\" trong menu\nhành động (⋯)" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Chuyển sang màn hình\n\"Chi tiết vai trò\" (/roles/:id)" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_ef1", "type": "action", "lane": "system", "text": "Hiển thị thông báo lỗi\ntrong Card + nút \"Quay lại\"" },
+    { "id": "end_ef1", "type": "end", "lane": "system" },
+    { "id": "n_af1", "type": "action", "lane": "system", "text": "Hiển thị Card \"Vai trò này không\ntồn tại hoặc đã bị xóa.\" + nút \"Quay lại\"" },
+    { "id": "end_af1", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị Card \"Thông tin vai trò\"\n(ID, Tên, Slug, Vai trò hệ thống,\nSố người dùng, Ngày tạo)" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Hiển thị Card \"Quyền hạn\"\n(danh sách quyền dạng badge)" },
+    { "id": "d2", "type": "decision", "lane": "actor" },
+    { "id": "n5", "type": "action", "lane": "actor", "text": "Nhập từ khoá vào\nô \"Tìm quyền...\"" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Lọc danh sách quyền\ntheo tên hoặc mô tả" },
+    { "id": "n7", "type": "action", "lane": "actor", "text": "Nhấn nút\n\"Quay lại\"" },
+    { "id": "n8", "type": "action", "lane": "system", "text": "Trở về màn hình\n\"Quản lý vai trò\"" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "Role" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "note1", "to": "d1", "kind": "note" },
+    { "from": "d1", "to": "n_ef1", "label": "Lỗi tải dữ liệu" },
+    { "from": "n_ef1", "to": "end_ef1" },
+    { "from": "d1", "to": "n_af1", "label": "Vai trò không tồn tại" },
+    { "from": "n_af1", "to": "end_af1" },
+    { "from": "d1", "to": "n3", "label": "Tải thành công" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "d2" },
+    { "from": "d2", "to": "n5", "label": "Nhập từ khoá tìm quyền" },
+    { "from": "n5", "to": "n6" },
+    { "from": "n6", "to": "n4" },
+    { "from": "d2", "to": "n7", "label": "Nhấn Quay lại" },
+    { "from": "n7", "to": "n8" },
+    { "from": "n8", "to": "end" }
+  ]
+}

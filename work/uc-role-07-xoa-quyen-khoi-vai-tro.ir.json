@@ -1,0 +1,43 @@
+{
+  "uc_id": "uc-role-07",
+  "title": "XOÁ QUYỀN KHỎI VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn nút X trên badge\nquyền muốn xoá" },
+    { "id": "d0", "type": "decision", "lane": "system" },
+    { "id": "n_ef2", "type": "action", "lane": "system", "text": "Nút X bị vô hiệu hoá,\ntooltip \"Không thể xoá quyền khỏi\nvai trò Quản trị viên\"" },
+    { "id": "end_ef2", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Hiển thị AlertDialog xác nhận\n\"Xoá quyền khỏi vai trò?\"\n(kèm tên quyền + tên vai trò)" },
+    { "id": "d1", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng AlertDialog,\nkhông xoá" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Gửi yêu cầu đồng bộ danh sách\nquyền (loại bỏ quyền đã chọn)" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_err", "type": "action", "lane": "system", "text": "Hiện toast lỗi tương ứng;\nAlertDialog đóng; danh sách không đổi" },
+    { "id": "end_err", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Hiện toast \"Đã xoá quyền\nkhỏi vai trò.\"; đóng AlertDialog;\nbadge quyền biến mất" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "Permission" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d0" },
+    { "from": "d0", "to": "n_ef2", "label": "Vai trò là Admin" },
+    { "from": "n_ef2", "to": "end_ef2" },
+    { "from": "d0", "to": "n2", "label": "Không phải Admin" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n_cancel", "label": "Nhấn Hủy" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "d1", "to": "n3", "label": "Nhấn Xóa" },
+    { "from": "note1", "to": "n3", "kind": "note" },
+    { "from": "n3", "to": "d2" },
+    { "from": "d2", "to": "n_err", "label": "Lỗi đồng bộ" },
+    { "from": "n_err", "to": "end_err" },
+    { "from": "d2", "to": "n4", "label": "Thành công" },
+    { "from": "n4", "to": "end" }
+  ]
+}

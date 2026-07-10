@@ -1,0 +1,42 @@
+{
+  "uc_id": "uc-chat-03",
+  "title": "TRẢ LỜI TIN NHẮN",
+  "lanes": [
+    { "id": "actor", "name": "Thành viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Di chuột vào\ntin nhắn muốn trả lời" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Hiển thị nút \"Trả lời\"\ncạnh bubble" },
+    { "id": "n3", "type": "action", "lane": "actor", "text": "Nhấn nút\n\"Trả lời\"" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Hiển thị thanh xem trước tin gốc\n(tên người gửi + trích dẫn)" },
+    { "id": "n5", "type": "action", "lane": "actor", "text": "Nhập nội dung\ntrả lời" },
+    { "id": "d1", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng thanh xem trước,\ntrở về soạn tin thường" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "n_send", "type": "action", "lane": "system", "text": "Gửi tin nhắn kèm\ntham chiếu tin gốc" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_restore", "type": "action", "lane": "system", "text": "Khôi phục nội dung\nvào ô soạn tin" },
+    { "id": "n_display", "type": "action", "lane": "system", "text": "Hiển thị tin nhắn trả lời\nkèm trích dẫn tin gốc" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "Message" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "n3" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "d1" },
+    { "from": "d1", "to": "n_cancel", "label": "Nhấn nút Huỷ (X)" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "d1", "to": "n_send", "label": "Nhấn Gửi/Enter" },
+    { "from": "n_send", "to": "d2" },
+    { "from": "note1", "to": "n_send", "kind": "note" },
+    { "from": "d2", "to": "n_restore", "label": "Lỗi máy chủ" },
+    { "from": "n_restore", "to": "n5" },
+    { "from": "d2", "to": "n_display", "label": "Thành công" },
+    { "from": "n_display", "to": "end" }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "uc_id": "uc-chat-04",
+  "title": "TẠO PHÒNG CHAT",
+  "lanes": [
+    { "id": "actor", "name": "Thành viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn nút \"+\" cạnh\ntiêu đề \"Phòng chat\"" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Mở Dialog\n\"Tạo phòng chat\"" },
+    { "id": "n3", "type": "action", "lane": "actor", "text": "Nhập tên phòng" },
+    { "id": "d1", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng Dialog,\nkhông tạo phòng nào" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Gửi yêu cầu\ntạo phòng" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n_dup", "type": "action", "lane": "system", "text": "Hiển thị \"Tên phòng chat đã tồn tại.\nVui lòng chọn tên khác.\"" },
+    { "id": "n_err", "type": "action", "lane": "system", "text": "Hiển thị \"Không thể tạo phòng.\nVui lòng thử lại.\"" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Tạo phòng, thêm thành viên\nlàm quản trị viên phòng" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Đóng Dialog; phòng mới hiển thị\nđầu danh sách và được chọn" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "ChatRoom" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "n3" },
+    { "from": "n3", "to": "d1" },
+    { "from": "d1", "to": "n_cancel", "label": "Nhấn Hủy/đóng Dialog" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "d1", "to": "d2", "label": "Nhấn Tạo phòng" },
+    { "from": "d2", "to": "n3", "label": "Tên trống" },
+    { "from": "d2", "to": "n4", "label": "Tên không trống" },
+    { "from": "n4", "to": "d3" },
+    { "from": "note1", "to": "n4", "kind": "note" },
+    { "from": "d3", "to": "n_dup", "label": "Tên đã tồn tại" },
+    { "from": "n_dup", "to": "n3" },
+    { "from": "d3", "to": "n_err", "label": "Lỗi máy chủ" },
+    { "from": "n_err", "to": "n3" },
+    { "from": "d3", "to": "n5", "label": "Thành công" },
+    { "from": "n5", "to": "n6" },
+    { "from": "n6", "to": "end" }
+  ]
+}

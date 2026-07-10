@@ -1,0 +1,37 @@
+{
+  "uc_id": "uc-role-01",
+  "title": "XEM DANH SÁCH VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn menu\n\"Vai trò\"" },
+    { "id": "d0", "type": "decision", "lane": "system" },
+    { "id": "n_ef", "type": "action", "lane": "system", "text": "Hiện toast\n\"Không có quyền truy cập.\"" },
+    { "id": "end_noperm", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Tải và hiển thị màn hình\n\"Quản lý vai trò\" (bảng: ID, Vai trò,\nSlug, Vai trò hệ thống, Số người dùng,\nNgày tạo — mặc định sắp xếp Ngày tạo giảm dần)" },
+    { "id": "n3", "type": "action", "lane": "actor", "text": "Tìm kiếm / sắp xếp cột /\nđổi số dòng mỗi trang / chuyển trang" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Tải lại danh sách theo\ntừ khoá/sắp xếp/phân trang\n(debounce 500ms, reset về trang 1)" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Hiển thị danh sách\nkết quả phù hợp" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Hiển thị \"Không tìm thấy\nkết quả phù hợp.\"" },
+    { "id": "end_empty", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d0" },
+    { "from": "d0", "to": "n_ef", "label": "Không có quyền" },
+    { "from": "n_ef", "to": "end_noperm" },
+    { "from": "d0", "to": "n2", "label": "Có quyền roles.view" },
+    { "from": "n2", "to": "n3" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "d1" },
+    { "from": "d1", "to": "n5", "label": "Có kết quả" },
+    { "from": "n5", "to": "end" },
+    { "from": "d1", "to": "n6", "label": "Không có kết quả" },
+    { "from": "n6", "to": "end_empty" }
+  ]
+}

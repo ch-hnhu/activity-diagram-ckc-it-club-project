@@ -1,0 +1,40 @@
+{
+  "uc_id": "uc-chat-01",
+  "title": "XEM PHÒNG CHAT CỘNG ĐỒNG",
+  "lanes": [
+    { "id": "actor", "name": "Thành viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn mục \"Phòng Chat\"\ntrên thanh điều hướng" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Tải danh sách\nphòng chat" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị\n\"Chưa có phòng nào\"" },
+    { "id": "end_empty", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Tự động chọn\nphòng đầu tiên" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Tải 30 tin nhắn gần nhất\n(cũ → mới)" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Hiển thị danh sách phòng và tin nhắn\n(nhận tin mới real-time qua WebSocket)" },
+    { "id": "n7", "type": "action", "lane": "actor", "text": "Chọn phòng khác\ntrong danh sách" },
+    { "id": "n8", "type": "action", "lane": "system", "text": "Tải lại 30 tin nhắn\ngần nhất của phòng mới" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "ChatRoom" },
+    { "id": "note2", "type": "note", "lane": "system", "text": "Message" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "note1", "to": "n2", "kind": "note" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n4", "label": "Có phòng" },
+    { "from": "d1", "to": "n3", "label": "Không có phòng" },
+    { "from": "n3", "to": "end_empty" },
+    { "from": "n4", "to": "n5" },
+    { "from": "note2", "to": "n5", "kind": "note" },
+    { "from": "n5", "to": "n6" },
+    { "from": "n6", "to": "n7" },
+    { "from": "n7", "to": "n8" },
+    { "from": "note2", "to": "n8", "kind": "note" },
+    { "from": "n8", "to": "end" }
+  ]
+}

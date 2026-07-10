@@ -1,0 +1,53 @@
+{
+  "uc_id": "uc-chat-02",
+  "title": "GỬI TIN NHẮN",
+  "lanes": [
+    { "id": "actor", "name": "Thành viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhập nội dung vào\nô soạn tin" },
+    { "id": "d_act", "type": "decision", "lane": "actor" },
+    { "id": "n_emoji", "type": "action", "lane": "actor", "text": "Chọn emoji để\nchèn vào nội dung" },
+    { "id": "n_shift", "type": "action", "lane": "actor", "text": "Xuống dòng trong\nô soạn tin" },
+    { "id": "n_gif1", "type": "action", "lane": "actor", "text": "Nhấn nút \"GIF\"" },
+    { "id": "n_gif2", "type": "action", "lane": "system", "text": "Mở bảng chọn GIF" },
+    { "id": "n_gif3", "type": "action", "lane": "actor", "text": "Tìm kiếm và\nchọn một GIF" },
+    { "id": "n_gif4", "type": "action", "lane": "system", "text": "Gửi GIF, hiển thị dạng ảnh động;\nđóng bảng chọn GIF" },
+    { "id": "d_valid", "type": "decision", "lane": "system" },
+    { "id": "n_send", "type": "action", "lane": "system", "text": "Gửi tin nhắn\nlên máy chủ" },
+    { "id": "d_srv", "type": "decision", "lane": "system" },
+    { "id": "n_restore", "type": "action", "lane": "system", "text": "Khôi phục nội dung\nvào ô soạn tin" },
+    { "id": "d_first", "type": "decision", "lane": "system" },
+    { "id": "n_addmember", "type": "action", "lane": "system", "text": "Thêm thành viên vào phòng\n(+1 thành viên)" },
+    { "id": "n_display", "type": "action", "lane": "system", "text": "Hiển thị tin nhắn trong khu vực\ntrò chuyện; xoá ô soạn tin" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "note1", "type": "note", "lane": "system", "text": "Message" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d_act" },
+    { "from": "d_act", "to": "n_emoji", "label": "Chèn emoji" },
+    { "from": "n_emoji", "to": "n1" },
+    { "from": "d_act", "to": "n_shift", "label": "Shift+Enter" },
+    { "from": "n_shift", "to": "n1" },
+    { "from": "d_act", "to": "n_gif1", "label": "Nhấn nút GIF" },
+    { "from": "n_gif1", "to": "n_gif2" },
+    { "from": "n_gif2", "to": "n_gif3" },
+    { "from": "n_gif3", "to": "n_gif4" },
+    { "from": "n_gif4", "to": "d_first" },
+    { "from": "d_act", "to": "d_valid", "label": "Nhấn Enter/Gửi" },
+    { "from": "d_valid", "to": "n1", "label": "Nội dung trống" },
+    { "from": "d_valid", "to": "n_send", "label": "Có nội dung" },
+    { "from": "n_send", "to": "d_srv" },
+    { "from": "note1", "to": "n_send", "kind": "note" },
+    { "from": "d_srv", "to": "n_restore", "label": "Lỗi máy chủ" },
+    { "from": "n_restore", "to": "n1" },
+    { "from": "d_srv", "to": "d_first", "label": "Thành công" },
+    { "from": "d_first", "to": "n_addmember", "label": "Lần đầu vào phòng" },
+    { "from": "n_addmember", "to": "n_display" },
+    { "from": "d_first", "to": "n_display", "label": "Đã là thành viên" },
+    { "from": "n_display", "to": "end" }
+  ]
+}
