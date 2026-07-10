@@ -1,0 +1,43 @@
+{
+  "uc_id": "uc-role-07",
+  "title": "XOÁ QUYỀN KHỎI VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn nút X trên\nbadge quyền" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_disabled", "type": "action", "lane": "system", "text": "Vô hiệu hoá nút X, hiện\ntooltip \"Không thể xoá quyền\nkhỏi vai trò Quản trị viên\"" },
+    { "id": "end_disabled", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Hiển thị AlertDialog\nxác nhận \"Xoá quyền\nkhỏi vai trò?\"" },
+    { "id": "d2", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng AlertDialog,\nkhông thực hiện xoá" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Gửi yêu cầu đồng bộ danh\nsách quyền (loại bỏ quyền\nvừa chọn)" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n_err1", "type": "action", "lane": "system", "text": "Hiển thị toast lỗi tương\nứng. Đóng AlertDialog" },
+    { "id": "end_err1", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Hiển thị toast \"Đã xoá\nquyền khỏi vai trò.\"" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Đóng AlertDialog, xoá\nbadge quyền khỏi giao diện" },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d1" },
+    { "from": "d1", "to": "n2", "label": "Không phải vai trò Admin", "branch": "main" },
+    { "from": "d1", "to": "n_disabled", "label": "Là vai trò Admin", "branch": "alt" },
+    { "from": "n_disabled", "to": "end_disabled" },
+    { "from": "n2", "to": "d2" },
+    { "from": "d2", "to": "n3", "label": "Nhấn Xóa", "branch": "main" },
+    { "from": "d2", "to": "n_cancel", "label": "Nhấn Hủy", "branch": "alt" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "n3", "to": "d3" },
+    { "from": "d3", "to": "n4", "label": "Thành công", "branch": "main" },
+    { "from": "d3", "to": "n_err1", "label": "Lỗi đồng bộ", "branch": "alt" },
+    { "from": "n_err1", "to": "end_err1" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "end" }
+  ]
+}

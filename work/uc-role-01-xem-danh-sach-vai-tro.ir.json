@@ -1,0 +1,39 @@
+{
+  "uc_id": "uc-role-01",
+  "title": "XEM DANH SÁCH VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn menu \"Vai trò\"" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_noperm", "type": "action", "lane": "system", "text": "Hiện toast thông báo\nkhông có quyền" },
+    { "id": "end_noperm", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Tải và hiển thị màn hình\n\"Quản lý vai trò\"" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị bảng: ID, Vai trò,\nSlug, Vai trò hệ thống,\nSố lượng, Ngày tạo" },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Tìm kiếm, sắp xếp cột,\nchọn số dòng hoặc\nchuyển trang" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Cập nhật bảng dữ liệu\n(reset về trang 1 nếu cần)" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Hiển thị bảng\nkết quả" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Hiển thị \"Không tìm thấy\nkết quả phù hợp.\"" },
+    { "id": "end2", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d1" },
+    { "from": "d1", "to": "n2", "label": "Có quyền", "branch": "main" },
+    { "from": "d1", "to": "n_noperm", "label": "Không có quyền", "branch": "alt" },
+    { "from": "n_noperm", "to": "end_noperm" },
+    { "from": "n2", "to": "n3" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "d2" },
+    { "from": "d2", "to": "n6", "label": "Có kết quả", "branch": "main" },
+    { "from": "d2", "to": "n7", "label": "Không có kết quả", "branch": "alt" },
+    { "from": "n6", "to": "end" },
+    { "from": "n7", "to": "end2" }
+  ]
+}

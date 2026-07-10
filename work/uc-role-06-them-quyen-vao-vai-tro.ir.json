@@ -1,0 +1,53 @@
+{
+  "uc_id": "uc-role-06",
+  "title": "THÊM QUYỀN VÀO VAI TRÒ",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn \"Thêm\" trong\nCard \"Quyền hạn\"" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Mở dialog, tải danh\nsách quyền chưa gán" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_err1", "type": "action", "lane": "system", "text": "Hiển thị toast \"Không\nthể tải danh sách quyền.\"" },
+    { "id": "end_err1", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị Combobox\nquyền chưa gán" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_full", "type": "action", "lane": "system", "text": "Hiển thị \"Vai trò đã có\ntất cả quyền\", vô hiệu\nhoá nút \"Thêm\"" },
+    { "id": "end_full", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Chọn một hoặc nhiều\nquyền từ Combobox" },
+    { "id": "d3", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng dialog, bỏ chọn\ncác quyền đã chọn" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Đồng bộ danh sách\nquyền mới vào vai trò" },
+    { "id": "d4", "type": "decision", "lane": "system" },
+    { "id": "n_err2", "type": "action", "lane": "system", "text": "Hiển thị toast lỗi\ntương ứng từ máy chủ" },
+    { "id": "end_err2", "type": "end", "lane": "system" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Hiển thị toast \"Đã\nthêm quyền vào vai trò.\"" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Đóng dialog, làm mới\ndanh sách quyền" },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Tải thành công", "branch": "main" },
+    { "from": "d1", "to": "n_err1", "label": "Lỗi tải danh sách", "branch": "alt" },
+    { "from": "n_err1", "to": "end_err1" },
+    { "from": "n3", "to": "d2" },
+    { "from": "d2", "to": "n4", "label": "Còn quyền chưa gán", "branch": "main" },
+    { "from": "d2", "to": "n_full", "label": "Đã có tất cả quyền", "branch": "alt" },
+    { "from": "n_full", "to": "end_full" },
+    { "from": "n4", "to": "d3" },
+    { "from": "d3", "to": "n5", "label": "Nhấn Thêm", "branch": "main" },
+    { "from": "d3", "to": "n_cancel", "label": "Nhấn Hủy", "branch": "alt" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "n5", "to": "d4" },
+    { "from": "d4", "to": "n6", "label": "Thành công", "branch": "main" },
+    { "from": "d4", "to": "n_err2", "label": "Lỗi đồng bộ", "branch": "alt" },
+    { "from": "n_err2", "to": "end_err2" },
+    { "from": "n6", "to": "n7" },
+    { "from": "n7", "to": "end" }
+  ]
+}
