@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Trang-1" id="activity-diagram">
+    <mxGraphModel dx="1557" dy="1018" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1025" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontStyle=1;fontSize=14;" value="TẠO MÃ QR ĐIỂM DANH" vertex="1"><mxGeometry x="105" y="120" width="800" height="30" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="3" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=none;" value="Học viên" vertex="1"><mxGeometry x="105" y="150" width="400" height="440" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="4" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=none;" value="Hệ thống" vertex="1"><mxGeometry x="505" y="150" width="400" height="440" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="5" parent="3" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1"><mxGeometry x="180" y="40" width="40" height="40" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="6" parent="3" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=none;" value="Nhấn 'Tạo mã QR&lt;div&gt;điểm danh'&lt;/div&gt;" vertex="1"><mxGeometry x="130" y="110" width="140" height="50" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="7" parent="4" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=none;" value="Sinh mã QR điểm danh&lt;div&gt;cá nhân&lt;/div&gt;" vertex="1"><mxGeometry x="115" y="190" width="170" height="50" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="8" parent="4" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=none;" value="Hiển thị mã QR&lt;div&gt;để xuất trình điểm danh&lt;/div&gt;" vertex="1"><mxGeometry x="115" y="270" width="170" height="50" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="9" parent="4" style="ellipse;html=1;shape=endState;fillColor=#000000;" value="" vertex="1"><mxGeometry x="185" y="350" width="30" height="30" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="10" parent="4" style="html=1;whiteSpace=wrap;fillColor=none;" value="AttendanceQR" vertex="1"><mxGeometry x="305" y="200" width="110" height="30" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="11" parent="3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=8;" edge="1" source="5" target="6" value=""><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="12" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=8;" edge="1" source="6" target="7" value=""><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="13" parent="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=8;" edge="1" source="7" target="8" value=""><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="14" parent="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=8;" edge="1" source="8" target="9" value=""><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
+        <mxCell id="15" parent="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=8;dashed=1;" edge="1" source="7" target="10" value=""><mxGeometry relative="1" as="geometry"></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
