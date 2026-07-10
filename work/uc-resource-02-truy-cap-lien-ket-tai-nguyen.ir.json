@@ -1,0 +1,24 @@
+{
+  "uc_id": "uc-resource-02",
+  "title": "TRUY CẬP LIÊN KẾT TÀI NGUYÊN",
+  "lanes": [{"id": "actor", "name": "Trưởng ban học thuật"}, {"id": "system", "name": "Hệ thống"}],
+  "nodes": [
+    {"id": "start", "type": "start", "lane": "actor"},
+    {"id": "n1", "type": "action", "lane": "actor", "text": "Nhấn liên kết\ntài nguyên"},
+    {"id": "n2", "type": "action", "lane": "system", "text": "Mở liên kết ở tab\ntrình duyệt mới"},
+    {"id": "d1", "type": "decision", "lane": "system"},
+    {"id": "n3", "type": "action", "lane": "actor", "text": "Xem xong và quay\nlại màn hình cũ"},
+    {"id": "err", "type": "action", "lane": "system", "text": "Trình duyệt hoặc\nđích báo lỗi"},
+    {"id": "end1", "type": "end", "lane": "actor"},
+    {"id": "end2", "type": "end", "lane": "system"}
+  ],
+  "flows": [
+    {"from": "start", "to": "n1"},
+    {"from": "n1", "to": "n2"},
+    {"from": "n2", "to": "d1"},
+    {"from": "d1", "to": "n3", "label": "Thành công"},
+    {"from": "d1", "to": "err", "label": "Lỗi truy cập"},
+    {"from": "n3", "to": "end1"},
+    {"from": "err", "to": "end2"}
+  ]
+}

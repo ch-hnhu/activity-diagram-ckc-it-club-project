@@ -1,0 +1,31 @@
+{
+  "uc_id": "uc-resource-03",
+  "title": "DUYỆT TÀI NGUYÊN",
+  "lanes": [{"id": "actor", "name": "Trưởng ban học thuật"}, {"id": "system", "name": "Hệ thống"}],
+  "nodes": [
+    {"id": "start", "type": "start", "lane": "actor"},
+    {"id": "n1", "type": "action", "lane": "actor", "text": "Chọn trạng thái Đăng\nhoặc Từ chối (kèm lý do)"},
+    {"id": "n2", "type": "action", "lane": "actor", "text": "Tùy chọn gửi thông báo\nvà xác nhận"},
+    {"id": "n3", "type": "action", "lane": "system", "text": "Kiểm tra tính hợp lệ\n(lý do từ chối)"},
+    {"id": "d1", "type": "decision", "lane": "system"},
+    {"id": "err", "type": "action", "lane": "system", "text": "Thông báo lỗi\nvà yêu cầu nhập lại"},
+    {"id": "n4", "type": "action", "lane": "system", "text": "Cập nhật trạng thái\nvà lưu thông tin duyệt"},
+    {"id": "d2", "type": "decision", "lane": "system"},
+    {"id": "n5", "type": "action", "lane": "system", "text": "Gửi thông báo\ncho người đăng"},
+    {"id": "end1", "type": "end", "lane": "system"},
+    {"id": "end2", "type": "end", "lane": "system"}
+  ],
+  "flows": [
+    {"from": "start", "to": "n1"},
+    {"from": "n1", "to": "n2"},
+    {"from": "n2", "to": "n3"},
+    {"from": "n3", "to": "d1"},
+    {"from": "d1", "to": "n4", "label": "Hợp lệ"},
+    {"from": "d1", "to": "err", "label": "Lỗi thiếu/quá dài"},
+    {"from": "err", "to": "n1"},
+    {"from": "n4", "to": "d2"},
+    {"from": "d2", "to": "n5", "label": "Có gửi thông báo"},
+    {"from": "d2", "to": "end1", "label": "Không gửi thông báo"},
+    {"from": "n5", "to": "end2"}
+  ]
+}

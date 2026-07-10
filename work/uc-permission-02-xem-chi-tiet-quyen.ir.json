@@ -1,0 +1,47 @@
+{
+  "uc_id": "uc-permission-02",
+  "title": "XEM CHI TIẾT QUYỀN",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn nút ba chấm\ntại dòng quyền" },
+    { "id": "n2", "type": "action", "lane": "actor", "text": "Chọn \"Chi tiết\"" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_notexist", "type": "action", "lane": "system", "text": "Dialog không mở" },
+    { "id": "end_notexist", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Mở Dialog\n\"Chi tiết quyền\"" },
+    { "id": "n_id", "type": "action", "lane": "system", "text": "Hiển thị ID và\ntên quyền" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_desc_yes", "type": "action", "lane": "system", "text": "Hiển thị mô tả\nquyền" },
+    { "id": "n_desc_no", "type": "action", "lane": "system", "text": "Hiển thị\n\"Không có mô tả\"" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Hiển thị vai trò\nsở hữu quyền này" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n_role_yes", "type": "action", "lane": "system", "text": "Hiển thị badge\ncác vai trò" },
+    { "id": "n_role_no", "type": "action", "lane": "system", "text": "Hiển thị \"Chưa\ncó vai trò nào\"" },
+    { "id": "n6", "type": "action", "lane": "actor", "text": "Đóng dialog sau\nkhi xem xong" },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Còn tồn tại", "branch": "main" },
+    { "from": "d1", "to": "n_notexist", "label": "Không còn tồn tại", "branch": "alt" },
+    { "from": "n_notexist", "to": "end_notexist" },
+    { "from": "n3", "to": "n_id" },
+    { "from": "n_id", "to": "d2" },
+    { "from": "d2", "to": "n_desc_yes", "label": "Có mô tả", "branch": "main" },
+    { "from": "d2", "to": "n_desc_no", "label": "Không có mô tả", "branch": "alt" },
+    { "from": "n_desc_yes", "to": "n5" },
+    { "from": "n_desc_no", "to": "n5" },
+    { "from": "n5", "to": "d3" },
+    { "from": "d3", "to": "n_role_yes", "label": "Có vai trò", "branch": "main" },
+    { "from": "d3", "to": "n_role_no", "label": "Chưa có vai trò", "branch": "alt" },
+    { "from": "n_role_yes", "to": "n6" },
+    { "from": "n_role_no", "to": "n6" },
+    { "from": "n6", "to": "end" }
+  ]
+}

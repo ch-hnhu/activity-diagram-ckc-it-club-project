@@ -1,0 +1,49 @@
+{
+  "uc_id": "uc-permission-03",
+  "title": "THÊM VAI TRÒ VÀO QUYỀN",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Mở Dialog\n\"Chi tiết quyền\"" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Tải danh sách vai\ntrò chưa sở hữu quyền" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_full", "type": "action", "lane": "system", "text": "Hiển thị \"Tất cả vai\ntrò đã được gán\", vô\nhiệu hoá nút \"Thêm\"" },
+    { "id": "end_full", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Hiển thị Combobox\n\"Thêm vai trò...\"" },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Chọn một vai trò\ntừ Combobox" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n_disabled", "type": "action", "lane": "system", "text": "Vô hiệu hoá\nnút \"Thêm\"" },
+    { "id": "end_disabled", "type": "end", "lane": "system" },
+    { "id": "n5", "type": "action", "lane": "actor", "text": "Nhấn \"Thêm\"" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Đồng bộ danh sách\nvai trò mới cho quyền" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n_err", "type": "action", "lane": "system", "text": "Hiển thị toast lỗi\ntương ứng, giữ dialog" },
+    { "id": "end_err", "type": "end", "lane": "system" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Vai trò mới xuất hiện\ntrong danh sách badge" },
+    { "id": "n8", "type": "action", "lane": "system", "text": "Reset Combobox về\ntrạng thái chưa chọn" },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "n2" },
+    { "from": "n2", "to": "d1" },
+    { "from": "d1", "to": "n3", "label": "Còn vai trò chưa gán", "branch": "main" },
+    { "from": "d1", "to": "n_full", "label": "Đã gán hết", "branch": "alt" },
+    { "from": "n_full", "to": "end_full" },
+    { "from": "n3", "to": "n4" },
+    { "from": "n4", "to": "d2" },
+    { "from": "d2", "to": "n5", "label": "Đã chọn vai trò", "branch": "main" },
+    { "from": "d2", "to": "n_disabled", "label": "Chưa chọn vai trò", "branch": "alt" },
+    { "from": "n_disabled", "to": "end_disabled" },
+    { "from": "n5", "to": "n6" },
+    { "from": "n6", "to": "d3" },
+    { "from": "d3", "to": "n7", "label": "Thành công", "branch": "main" },
+    { "from": "d3", "to": "n_err", "label": "Lỗi đồng bộ", "branch": "alt" },
+    { "from": "n_err", "to": "end_err" },
+    { "from": "n7", "to": "n8" },
+    { "from": "n8", "to": "end" }
+  ]
+}

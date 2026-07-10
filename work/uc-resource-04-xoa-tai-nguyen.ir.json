@@ -1,0 +1,33 @@
+{
+  "uc_id": "uc-resource-04",
+  "title": "XÓA TÀI NGUYÊN",
+  "lanes": [{"id": "actor", "name": "Quản trị viên"}, {"id": "system", "name": "Hệ thống"}],
+  "nodes": [
+    {"id": "start", "type": "start", "lane": "actor"},
+    {"id": "n1", "type": "action", "lane": "actor", "text": "Nhấn nút Xóa\ntài nguyên"},
+    {"id": "n2", "type": "action", "lane": "system", "text": "Hiển thị hộp thoại\nxác nhận xóa"},
+    {"id": "d1", "type": "decision", "lane": "actor"},
+    {"id": "n3", "type": "action", "lane": "actor", "text": "Xác nhận xóa"},
+    {"id": "n4", "type": "action", "lane": "actor", "text": "Hủy bỏ"},
+    {"id": "n5", "type": "action", "lane": "system", "text": "Thực hiện xóa\ntài nguyên"},
+    {"id": "d2", "type": "decision", "lane": "system"},
+    {"id": "n6", "type": "action", "lane": "system", "text": "Thông báo thành công\nvà làm mới danh sách"},
+    {"id": "err", "type": "action", "lane": "system", "text": "Thông báo\nxóa thất bại"},
+    {"id": "end1", "type": "end", "lane": "system"},
+    {"id": "end2", "type": "end", "lane": "actor"}
+  ],
+  "flows": [
+    {"from": "start", "to": "n1"},
+    {"from": "n1", "to": "n2"},
+    {"from": "n2", "to": "d1"},
+    {"from": "d1", "to": "n3", "label": "Đồng ý"},
+    {"from": "d1", "to": "n4", "label": "Hủy"},
+    {"from": "n4", "to": "end2"},
+    {"from": "n3", "to": "n5"},
+    {"from": "n5", "to": "d2"},
+    {"from": "d2", "to": "n6", "label": "Thành công"},
+    {"from": "d2", "to": "err", "label": "Thất bại"},
+    {"from": "err", "to": "n1"},
+    {"from": "n6", "to": "end1"}
+  ]
+}

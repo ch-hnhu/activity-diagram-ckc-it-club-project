@@ -1,0 +1,36 @@
+{
+  "uc_id": "uc-resource-06",
+  "title": "XỬ LÝ BÁO CÁO",
+  "lanes": [{"id": "actor", "name": "Trưởng ban học thuật"}, {"id": "system", "name": "Hệ thống"}],
+  "nodes": [
+    {"id": "start", "type": "start", "lane": "actor"},
+    {"id": "n1", "type": "action", "lane": "actor", "text": "Chọn Bỏ qua hoặc\nẨn tài nguyên"},
+    {"id": "d1", "type": "decision", "lane": "actor"},
+    {"id": "n2", "type": "action", "lane": "actor", "text": "Nhập ghi chú xử lý"},
+    {"id": "n3", "type": "action", "lane": "system", "text": "Xác nhận và kiểm tra\ntài nguyên tồn tại"},
+    {"id": "d2", "type": "decision", "lane": "system"},
+    {"id": "err1", "type": "action", "lane": "system", "text": "Thông báo tài nguyên\nkhông tồn tại"},
+    {"id": "end1", "type": "end", "lane": "system"},
+    {"id": "d3", "type": "decision", "lane": "system"},
+    {"id": "err2", "type": "action", "lane": "system", "text": "Thông báo lỗi\nyêu cầu nhập ghi chú"},
+    {"id": "n4", "type": "action", "lane": "system", "text": "Cập nhật trạng thái\nvà ẩn tài nguyên (nếu có)"},
+    {"id": "n5", "type": "action", "lane": "system", "text": "Gửi thông báo cho\nngười liên quan"},
+    {"id": "end2", "type": "end", "lane": "system"}
+  ],
+  "flows": [
+    {"from": "start", "to": "n1"},
+    {"from": "n1", "to": "d1"},
+    {"from": "d1", "to": "n2", "label": "Ẩn"},
+    {"from": "d1", "to": "n3", "label": "Bỏ qua"},
+    {"from": "n2", "to": "n3"},
+    {"from": "n3", "to": "d2"},
+    {"from": "d2", "to": "err1", "label": "Không tồn tại"},
+    {"from": "err1", "to": "end1"},
+    {"from": "d2", "to": "d3", "label": "Tồn tại"},
+    {"from": "d3", "to": "n4", "label": "Thông tin hợp lệ"},
+    {"from": "d3", "to": "err2", "label": "Thiếu ghi chú"},
+    {"from": "err2", "to": "n2"},
+    {"from": "n4", "to": "n5"},
+    {"from": "n5", "to": "end2"}
+  ]
+}

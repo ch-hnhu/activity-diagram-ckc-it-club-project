@@ -1,0 +1,50 @@
+{
+  "uc_id": "uc-permission-01",
+  "title": "XEM DANH SÁCH QUYỀN",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Mở màn hình\n\"Quản lý quyền\"" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_noperm", "type": "action", "lane": "system", "text": "Hiện toast \"Tài khoản\nkhông có quyền thực hiện\nchức năng này\"" },
+    { "id": "end_noperm", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Tải danh sách quyền" },
+    { "id": "d_err1", "type": "decision", "lane": "system" },
+    { "id": "n_err1", "type": "action", "lane": "system", "text": "Giữ màn hình hiện tại,\nghi nhận lỗi" },
+    { "id": "end_err1", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Tải danh sách vai trò\nđể hiển thị bộ lọc" },
+    { "id": "d_err2", "type": "decision", "lane": "system" },
+    { "id": "n_err2", "type": "action", "lane": "system", "text": "Giữ bộ lọc vai trò\ntrống, ghi nhận lỗi" },
+    { "id": "n4", "type": "action", "lane": "actor", "text": "Tìm kiếm, lọc theo vai\ntrò, sắp xếp cột,\nchuyển trang" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Cập nhật bảng dữ\nliệu tương ứng" },
+    { "id": "d2", "type": "decision", "lane": "system" },
+    { "id": "n6", "type": "action", "lane": "system", "text": "Hiển thị bảng\nkết quả" },
+    { "id": "end", "type": "end", "lane": "system" },
+    { "id": "n7", "type": "action", "lane": "system", "text": "Hiển thị \"Không tìm thấy\nkết quả phù hợp.\"" },
+    { "id": "end2", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d1" },
+    { "from": "d1", "to": "n2", "label": "Có quyền", "branch": "main" },
+    { "from": "d1", "to": "n_noperm", "label": "Không có quyền", "branch": "alt" },
+    { "from": "n_noperm", "to": "end_noperm" },
+    { "from": "n2", "to": "d_err1" },
+    { "from": "d_err1", "to": "n3", "label": "Tải thành công", "branch": "main" },
+    { "from": "d_err1", "to": "n_err1", "label": "Lỗi tải danh sách", "branch": "alt" },
+    { "from": "n_err1", "to": "end_err1" },
+    { "from": "n3", "to": "d_err2" },
+    { "from": "d_err2", "to": "n4", "label": "Tải thành công", "branch": "main" },
+    { "from": "d_err2", "to": "n_err2", "label": "Lỗi tải vai trò", "branch": "alt" },
+    { "from": "n_err2", "to": "n4" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "d2" },
+    { "from": "d2", "to": "n6", "label": "Có kết quả", "branch": "main" },
+    { "from": "d2", "to": "n7", "label": "Không có kết quả", "branch": "alt" },
+    { "from": "n6", "to": "end" },
+    { "from": "n7", "to": "end2" }
+  ]
+}

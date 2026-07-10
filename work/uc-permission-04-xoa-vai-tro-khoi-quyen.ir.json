@@ -1,0 +1,43 @@
+{
+  "uc_id": "uc-permission-04",
+  "title": "XOÁ VAI TRÒ KHỎI QUYỀN",
+  "lanes": [
+    { "id": "actor", "name": "Quản trị viên" },
+    { "id": "system", "name": "Hệ thống" }
+  ],
+  "nodes": [
+    { "id": "start", "type": "start", "lane": "actor" },
+    { "id": "n1", "type": "action", "lane": "actor", "text": "Nhấn nút X trên\nbadge vai trò" },
+    { "id": "d1", "type": "decision", "lane": "system" },
+    { "id": "n_disabled", "type": "action", "lane": "system", "text": "Vô hiệu hoá nút X,\nhiện tooltip \"Không thể\nxóa vai trò Quản trị viên\"" },
+    { "id": "end_disabled", "type": "end", "lane": "system" },
+    { "id": "n2", "type": "action", "lane": "system", "text": "Hiển thị AlertDialog\n\"Xoá vai trò khỏi\nquyền?\"" },
+    { "id": "d2", "type": "decision", "lane": "actor" },
+    { "id": "n_cancel", "type": "action", "lane": "system", "text": "Đóng AlertDialog,\ndanh sách không đổi" },
+    { "id": "end_cancel", "type": "end", "lane": "system" },
+    { "id": "n3", "type": "action", "lane": "system", "text": "Đồng bộ danh sách vai\ntrò (loại bỏ vai trò\nđã chọn)" },
+    { "id": "d3", "type": "decision", "lane": "system" },
+    { "id": "n_err", "type": "action", "lane": "system", "text": "Hiển thị toast lỗi,\ndanh sách vai trò quay\nvề trạng thái trước đó" },
+    { "id": "end_err", "type": "end", "lane": "system" },
+    { "id": "n4", "type": "action", "lane": "system", "text": "Đóng AlertDialog" },
+    { "id": "n5", "type": "action", "lane": "system", "text": "Badge vai trò biến\nmất khỏi danh sách" },
+    { "id": "end", "type": "end", "lane": "system" }
+  ],
+  "flows": [
+    { "from": "start", "to": "n1" },
+    { "from": "n1", "to": "d1" },
+    { "from": "d1", "to": "n2", "label": "Không phải vai trò Admin", "branch": "main" },
+    { "from": "d1", "to": "n_disabled", "label": "Là vai trò Admin", "branch": "alt" },
+    { "from": "n_disabled", "to": "end_disabled" },
+    { "from": "n2", "to": "d2" },
+    { "from": "d2", "to": "n3", "label": "Nhấn Xóa", "branch": "main" },
+    { "from": "d2", "to": "n_cancel", "label": "Nhấn Hủy", "branch": "alt" },
+    { "from": "n_cancel", "to": "end_cancel" },
+    { "from": "n3", "to": "d3" },
+    { "from": "d3", "to": "n4", "label": "Thành công", "branch": "main" },
+    { "from": "d3", "to": "n_err", "label": "Lỗi đồng bộ", "branch": "alt" },
+    { "from": "n_err", "to": "end_err" },
+    { "from": "n4", "to": "n5" },
+    { "from": "n5", "to": "end" }
+  ]
+}
